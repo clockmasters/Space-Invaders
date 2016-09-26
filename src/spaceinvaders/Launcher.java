@@ -1,5 +1,7 @@
 package spaceinvaders;
 
+import spaceinvaders.game.Game;
+
 /**
  *
  * @author douglas
@@ -8,12 +10,9 @@ package spaceinvaders;
  */
 public class Launcher {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        System.out.println("Oi Terra!");
-        System.out.println("Ei");
+        Game spaceInvaders = new Game();
+        spaceInvaders.gameLoop();
     }
 
 }
