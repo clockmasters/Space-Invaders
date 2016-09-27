@@ -43,4 +43,28 @@ public class Display extends Canvas {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
+    public void setLarg(int larg) {
+        this.larg = larg;
+    }
+
+    public int getLargCont() {
+        return larg;
+    }
+
+    public void setAlt(int alt) {
+        this.alt = alt;
+    }
+
+    public int getAlt() {
+        return alt;
+    }
+
+    public void setAllienCont(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAllienCont() {
+        return titulo;
+    }
 }
