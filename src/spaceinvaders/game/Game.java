@@ -180,7 +180,7 @@ public class Game {
             if (esperarPorPressionarTecla) {
                 g.setColor(Color.white);
                 g.drawString(mensagem, (800 - g.getFontMetrics().stringWidth(mensagem)) / 2, 250);
-                g.drawString("Press any key", (800 - g.getFontMetrics().stringWidth("Press any key")) / 2, 300);
+                g.drawString("Pressione qualquer Tecla", (800 - g.getFontMetrics().stringWidth("Pressione Qualquer Tecla")) / 2, 300);
             }
 
             g.dispose();
