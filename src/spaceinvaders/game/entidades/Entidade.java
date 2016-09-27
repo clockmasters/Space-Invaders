@@ -18,32 +18,32 @@ import java.awt.Rectangle;
 public abstract class Entidade {
 
     /**
-     * Posição x da entidade
+     * Posição x da entidade.
      */
     protected double x;
     /**
-     * Posição y da entidade
+     * Posição y da entidade.
      */
     protected double y;
     /**
-     * Sprite associado a entidade
+     * Sprite associado a entidade.
      */
     protected Sprite sprite;
     /**
-     * Velocidade horizontal da entidade
+     * Velocidade horizontal da entidade.
      */
     protected double dx;
     /**
-     * Velocidade vertical da entidade
+     * Velocidade vertical da entidade.
      */
     protected double dy;
     /**
-     * Retângulo de resolução de colisão usado nesta entidade
+     * Retângulo de resolução de colisão usado nesta entidade.
      */
     private Rectangle eu;
     /**
      * Retângulo de resolução de colisão usado na outra entidade que colidiu com
-     * esta
+     * esta.
      */
     private Rectangle ele;
 
