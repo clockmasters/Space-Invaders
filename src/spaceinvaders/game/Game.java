@@ -74,13 +74,13 @@ public class Game {
 
     private void initEntidades() {
         int linha, col;
-        nave = new ShipEntity(this, "sprites/nave.gif");
+        nave = new ShipEntity(this, "game/sprites/nave.gif");
         entidades.add(nave);
 
         allienCont = 0;
         for (linha = 0; linha < 5; linha++) {
             for (col = 0; col < 5; col++) {
-                Entidade alien = new AllienEntity("this", "sprites/allien.gif");
+                Entidade alien = new AllienEntity("this", "game/sprites/allien.gif");
                 entidades.add(alien);
                 allienCont++;
             }
@@ -127,7 +127,7 @@ public class Game {
         }
 
         ultimoTiro = System.currentTimeMillis();
-        ShotEntity tiro = new ShotEntity(this, "sprites/tiro.gif", nave.getX());
+        ShotEntity tiro = new ShotEntity(this, "game/sprites/tiro.gif", nave.getX());
         entidades.add(tiro);
     }
 
