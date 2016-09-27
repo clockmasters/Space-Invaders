@@ -9,6 +9,7 @@ import java.awt.event.WindowEvent;//não funcionar, usar métodos desses pacotes
 import java.util.ArrayList;
 
 import spaceinvaders.game.display.Display;
+import spaceinvaders.game.entidades.Entidade;
 import spaceinvaders.game.teclado.TratadorDeEventos;
 
 /**
@@ -53,11 +54,11 @@ public class Game {
 
         Display tela = new Display("Space Invaders", 600, 800);
 
-        tela.addKeyListener(new TratadorDeEventos(this));//Substituir o nome KeyInputHandler por PT-BR
-        tela.requestFocus();
-        tela.setIgnoreRepaint(true);
-        tela.createBufferStrategy(2);
-        estrategia = tela.getBufferStrategy();
+        tela.addKeyListener(new TratadorDeEventos(this));
+        tela.requestFocus();//Não sei pra que serve
+        tela.setIgnoreRepaint(true);//Não sei pra que serve
+        tela.createBufferStrategy(2);//Não sei pra que serve
+        estrategia = tela.getBufferStrategy();//Não sei pra que serve
 
         initEntidades();
     }
