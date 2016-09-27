@@ -3,8 +3,8 @@ package spaceinvaders.game;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.WindowAdapter;//Se o fechar janela da classe display
+import java.awt.event.WindowEvent;//não funcionar, usar métodos desses pacotes
 
 import java.util.ArrayList;
 
