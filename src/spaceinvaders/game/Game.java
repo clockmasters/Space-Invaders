@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import spaceinvaders.game.display.Display;
 import spaceinvaders.game.entidades.Entidade;
 import spaceinvaders.game.teclado.TratadorDeEventos;
+import spaceinvaders.game.entidades.EntidadeTiro;
 
 /**
  *
@@ -74,13 +75,13 @@ public class Game {
 
     private void initEntidades() {
         int linha, col;
-        nave = new ShipEntity(this, "game/sprites/nave.gif");
+        nave = new EntidadeNave(this, "game/sprites/nave.gif");
         entidades.add(nave);
 
         allienCont = 0;
         for (linha = 0; linha < 5; linha++) {
             for (col = 0; col < 5; col++) {
-                Entidade alien = new AllienEntity("this", "game/sprites/allien.gif");
+                Entidade alien = new EntidadeAlien("this", "game/sprites/allien.gif");
                 entidades.add(alien);
                 allienCont++;
             }
@@ -104,7 +105,7 @@ public class Game {
         mensagem = "Bom trabalho! Você Ganhou!";
     }
 
-    public void notificaAllienMorto() {
+    public void notificaAlienMorto() {
         int i;
         allienCont--;
         if (allienCont == 0) {
@@ -114,7 +115,7 @@ public class Game {
         for (i = 0; i < entidades.size(); i++) {
             Entidade entidade = (Entidade) entidades.get(i);
 
-            if (entidade instanceof AllienEntity) {
+            if (entidade instanceof EntidadeAlien) {
                 //aumenta em 2%
                 entidade.setMovimentoHorizontal(entidade.getMovimentoHorizontal() * 1.02);
             }
@@ -127,7 +128,7 @@ public class Game {
         }
 
         ultimoTiro = System.currentTimeMillis();
-        ShotEntity tiro = new ShotEntity(this, "game/sprites/tiro.gif", nave.getX());
+        EntidadeTiro tiro = new EntidadeTiro(this, "game/sprites/tiro.gif", nave.getX());
         entidades.add(tiro);
     }
 
@@ -173,7 +174,7 @@ public class Game {
             if (logicaNecessariaNesteLoop) {
                 for (i = 0; i < entidades.size(); i++) {
                     Entidade entidade = (Entidade) entidades.get(i);
-                    entidade.facaLogica();
+                    entidade.fazLogica();
                 }
                 logicaNecessariaNesteLoop = false;
             }

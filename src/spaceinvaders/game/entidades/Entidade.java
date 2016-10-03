@@ -3,6 +3,9 @@ package spaceinvaders.game.entidades;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
+import spaceinvaders.game.sprites.GuardaSprite;
+import spaceinvaders.game.sprites.Sprite;
+
 /**
  * Uma entidade representa qualquer elemento que apareça no jogo. A entidade é
  * responsável por resolver colisões e movimentos baseada em um conjunto de
@@ -57,7 +60,7 @@ public abstract class Entidade {
     public Entidade(String ref, int x, int y) {
         eu = new Rectangle();
         ele = new Rectangle();
-        sprite = SpriteStore.get().getSprite(ref);
+        sprite = GuardaSprite.sprite_get().getSprite(ref);
         this.x = x;
         this.y = y;
     }
@@ -68,7 +71,7 @@ public abstract class Entidade {
      *
      * @param delta A quantidade de tempo que passou em milisegundos
      */
-    public void move(long delta) {
+    public void mover(long delta) {
         x += (delta * dx) / 1000;
         y += (delta * dy) / 1000;
     }
@@ -114,15 +117,15 @@ public abstract class Entidade {
      *
      * @param g o contexto gráfico fornecido no qual irá desenhar a entidade
      */
-    public void draw(Graphics g) {
-        sprite.draw(g, (int) x, (int) y);
+    public void desenha(Graphics g) {
+        sprite.desenhar(g, (int) x, (int) y);
     }
 
     /**
      * Lógica associada com a entidade. Não tem uso ainda
      *
      */
-    public void doLogic() {
+    public void fazLogica() {
     }
 
     /**
@@ -162,5 +165,5 @@ public abstract class Entidade {
      * @param outra A entidade com a qual esta colidiu
      * @return A entidade com que esta colidiu
      */
-    public abstract boolean colidiuCom(Entidade outra);
+    public abstract void colidiuCom(Entidade outra);
 }
