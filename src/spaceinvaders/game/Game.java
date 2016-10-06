@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
 import java.awt.event.WindowAdapter;//Se o fechar janela da classe display
 import java.awt.event.WindowEvent;//não funcionar, usar métodos desses pacotes
+import java.io.IOException;
 
 import java.util.ArrayList;
 
@@ -40,7 +41,7 @@ public class Game {
     private boolean tiroPressionado;
     private boolean logicaNecessariaNesteLoop;
 
-    public Game() {
+    public Game() throws IOException {
         jogoRodando = true;
         entidades = new ArrayList();
         removeLista = new ArrayList();
@@ -66,7 +67,7 @@ public class Game {
         initEntidades();
     }
 
-    public void startGame() {
+    public void startGame() throws IOException {
         entidades.clear();
         initEntidades();
 
@@ -75,15 +76,15 @@ public class Game {
         tiroPressionado = false;
     }
 
-    private void initEntidades() {
+    private void initEntidades() throws IOException {
         int linha, col;
-        nave = new EntidadeNave(this, "game/sprites/nave.gif", 370, 550);
+        nave = new EntidadeNave(this, "spaceinvaders/game/sprites/nave.gif", 370, 550);
         entidades.add(nave);
 
         allienCont = 0;
         for (linha = 0; linha < 5; linha++) {
             for (col = 0; col < 5; col++) {
-                Entidade alien = new EntidadeAlien(this, "game/sprites/allien.gif", 100 + (col * 50), (50) + linha * 30);
+                Entidade alien = new EntidadeAlien(this, "spaceinvaders/game/sprites/alien.gif", 100 + (col * 50), (50) + linha * 30);
                 entidades.add(alien);
                 allienCont++;
             }
@@ -124,7 +125,7 @@ public class Game {
         }
     }
 
-    public void tentaAtirar() {
+    public void tentaAtirar() throws IOException {
         if (System.currentTimeMillis() - ultimoTiro < intervaloDeTiro) {
             return;
         }
@@ -134,7 +135,7 @@ public class Game {
         entidades.add(tiro);
     }
 
-    public void gameLoop() {
+    public void gameLoop() throws IOException {
         int i, j;
         long tempoUltimoLoop = System.currentTimeMillis();
         long delta;
