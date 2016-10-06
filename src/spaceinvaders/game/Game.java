@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import spaceinvaders.game.display.Display;
 import spaceinvaders.game.entidades.Entidade;
+import spaceinvaders.game.entidades.EntidadeAlien;
+import spaceinvaders.game.entidades.EntidadeNave;
 import spaceinvaders.game.teclado.TratadorDeEventos;
 import spaceinvaders.game.entidades.EntidadeTiro;
 
@@ -75,13 +77,13 @@ public class Game {
 
     private void initEntidades() {
         int linha, col;
-        nave = new EntidadeNave(this, "game/sprites/nave.gif");
+        nave = new EntidadeNave(this, "game/sprites/nave.gif", 370, 550);
         entidades.add(nave);
 
         allienCont = 0;
         for (linha = 0; linha < 5; linha++) {
             for (col = 0; col < 5; col++) {
-                Entidade alien = new EntidadeAlien("this", "game/sprites/allien.gif");
+                Entidade alien = new EntidadeAlien(this, "game/sprites/allien.gif", 100 + (col * 50), (50) + linha * 30);
                 entidades.add(alien);
                 allienCont++;
             }
@@ -128,7 +130,7 @@ public class Game {
         }
 
         ultimoTiro = System.currentTimeMillis();
-        EntidadeTiro tiro = new EntidadeTiro(this, "game/sprites/tiro.gif", nave.getX());
+        EntidadeTiro tiro = new EntidadeTiro(this, "game/sprites/tiro.gif", nave.getX() + 10, nave.getY() - 30);
         entidades.add(tiro);
     }
 
@@ -148,7 +150,7 @@ public class Game {
             if (!esperarPorPressionarTecla) {
                 for (i = 0; i < entidades.size(); i++) {
                     Entidade entidade = (Entidade) entidades.get(i);
-                    entidade.move(delta);
+                    entidade.mover(delta);
                 }
             }
 
