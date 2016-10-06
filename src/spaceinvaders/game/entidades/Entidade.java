@@ -2,6 +2,7 @@ package spaceinvaders.game.entidades;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.io.IOException;
 
 import spaceinvaders.game.sprites.GuardaSprite;
 import spaceinvaders.game.sprites.Sprite;
@@ -57,7 +58,7 @@ public abstract class Entidade {
      * @param x A localização horizontal desta entidade
      * @param y A localização vertical desta entidade
      */
-    public Entidade(String ref, int x, int y) {
+    public Entidade(String ref, int x, int y) throws IOException {
         eu = new Rectangle();
         ele = new Rectangle();
         sprite = GuardaSprite.sprite_get().getSprite(ref);
