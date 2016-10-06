@@ -2,6 +2,7 @@ package spaceinvaders.game.teclado;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 
 import spaceinvaders.game.Game;
 
@@ -56,7 +57,7 @@ public class TratadorDeEventos extends KeyAdapter {
         }
     }
 
-    public void teclaDigitada(KeyEvent e) {
+    public void teclaDigitada(KeyEvent e) throws IOException {
         if (g.getEsperarPorPressionarTecla()) {
             if (contTeclasPressionadas == 1) {
                 g.setEsperarPorPressionarTecla(false);
