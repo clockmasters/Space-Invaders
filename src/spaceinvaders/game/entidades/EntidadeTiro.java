@@ -1,5 +1,6 @@
 package spaceinvaders.game.entidades;
 
+import java.io.IOException;
 import spaceinvaders.game.Game;
 
 /**
@@ -23,7 +24,7 @@ public class EntidadeTiro extends Entidade {
 	 * @param x A posicao x inicial do tiro
 	 * @param y A posicao y inicial do tiro
 	 */
-	public EntidadeTiro(Game game,String sprite,int x,int y) {
+	public EntidadeTiro(Game game,String sprite,int x,int y) throws IOException {
 		super(sprite,x,y);
 		
 		this.game = game;
