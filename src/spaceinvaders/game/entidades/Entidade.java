@@ -164,7 +164,7 @@ public abstract class Entidade {
      * Notificação de que esta entidade colidiu com outra.
      *
      * @param outra A entidade com a qual esta colidiu
-     * @return A entidade com que esta colidiu
+     * 
      */
     public abstract void colidiuCom(Entidade outra);
 }
