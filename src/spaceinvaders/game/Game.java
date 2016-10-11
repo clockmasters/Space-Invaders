@@ -1,19 +1,27 @@
 package spaceinvaders.game;
 
+import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
-import java.awt.event.WindowAdapter;//Se o fechar janela da classe display
-import java.awt.event.WindowEvent;//não funcionar, usar métodos desses pacotes
+//import java.awt.event.WindowAdapter;//Se o fechar janela da classe display
+//import java.awt.event.WindowEvent;//não funcionar, usar métodos desses pacotes
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-import spaceinvaders.game.display.Display;
+//import spaceinvaders.game.display.Display;
 import spaceinvaders.game.entidades.Entidade;
 import spaceinvaders.game.entidades.EntidadeAlien;
 import spaceinvaders.game.entidades.EntidadeNave;
-import spaceinvaders.game.teclado.TratadorDeEventos;
+//import spaceinvaders.game.teclado.TratadorDeEventos;
 import spaceinvaders.game.entidades.EntidadeTiro;
 
 /**
@@ -22,7 +30,7 @@ import spaceinvaders.game.entidades.EntidadeTiro;
  * @version 1-25/09/2016, 21:03:13
  * @languageOfComments: Portuguese
  */
-public class Game {
+public class Game extends Canvas {
 
     private BufferStrategy estrategia;//
     private boolean jogoRodando;
@@ -56,18 +64,48 @@ public class Game {
         tiroPressionado = false;
         logicaNecessariaNesteLoop = false;
 
-        Display tela = new Display("Space Invaders", 600, 800);
+        //Display tela = new Display("Space Invaders", 600, 800);
+        //tela.getPainel().addKeyListener(new TratadorDeEventos());
+        //tela.requestFocus();//Não sei pra que serve
+        //tela.setIgnoreRepaint(true);//Não sei pra que serve
+        //tela.createBufferStrategy(2);//Não sei pra que serve
+        //tela.getPainel().addKeyListener(new TratadorDeEventos(this));
+        //estrategia = tela.getBufferStrategy();//Não sei pra que serve
+        JFrame frame = new JFrame("Space Invaders!");
+        JPanel painel = (JPanel) frame.getContentPane();
+        //Canvas canvas = new Canvas();
 
-        tela.addKeyListener(new TratadorDeEventos(this));
-        tela.requestFocus();//Não sei pra que serve
-        tela.setIgnoreRepaint(true);//Não sei pra que serve
-        tela.createBufferStrategy(2);//Não sei pra que serve
-        estrategia = tela.getBufferStrategy();//Não sei pra que serve
+        painel.setPreferredSize(new Dimension(800, 600));
+        painel.setLayout(null);
+
+        setBounds(0, 0, 800, 600);
+        painel.add(this);
+
+        setIgnoreRepaint(true);
+
+        frame.pack();
+        frame.setResizable(false);
+        frame.setVisible(true);
+        frame.setLocationRelativeTo(null);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        painel.requestFocusInWindow();
+        painel.setFocusable(true);;
+        painel.addKeyListener(new TratadorDeEventos());
+
+        addKeyListener(new TratadorDeEventos());
+
+        requestFocus();
+
+        createBufferStrategy(2);
+        estrategia = getBufferStrategy();
 
         initEntidades();
     }
 
     public void startGame() throws IOException {
+
+        System.out.println("startGame");
         entidades.clear();
         initEntidades();
 
@@ -77,14 +115,15 @@ public class Game {
     }
 
     private void initEntidades() throws IOException {
+        System.out.println("initEntities");
         int linha, col;
-        nave = new EntidadeNave(this, "spaceinvaders/game/sprites/nave.gif", 370, 550);
+        nave = new EntidadeNave(this, "spaceinvaders/game/sprites/sprnave.gif", 370, 550);
         entidades.add(nave);
 
         allienCont = 0;
         for (linha = 0; linha < 5; linha++) {
-            for (col = 0; col < 5; col++) {
-                Entidade alien = new EntidadeAlien(this, "spaceinvaders/game/sprites/alien.gif", 100 + (col * 50), (50) + linha * 30);
+            for (col = 0; col < 12; col++) {
+                Entidade alien = new EntidadeAlien(this, "spaceinvaders/game/sprites/spralien.gif", 100 + (col * 50), (50) + linha * 30);
                 entidades.add(alien);
                 allienCont++;
             }
@@ -106,6 +145,7 @@ public class Game {
 
     public void notificaVitoria() {
         mensagem = "Bom trabalho! Você Ganhou!";
+        esperarPorPressionarTecla = true;
     }
 
     public void notificaAlienMorto() {
@@ -131,7 +171,8 @@ public class Game {
         }
 
         ultimoTiro = System.currentTimeMillis();
-        EntidadeTiro tiro = new EntidadeTiro(this, "game/sprites/tiro.gif", nave.getX() + 10, nave.getY() - 30);
+        System.out.println("Espaço - Atira");
+        EntidadeTiro tiro = new EntidadeTiro(this, "spaceinvaders/game/sprites/sprtiro.gif", nave.getX() + 10, nave.getY() - 30);
         entidades.add(tiro);
     }
 
@@ -140,7 +181,12 @@ public class Game {
         long tempoUltimoLoop = System.currentTimeMillis();
         long delta;
 
+        System.out.println("gameLoop");
+
         while (jogoRodando) {
+            //System.out.println("Jogo Rodando: " + jogoRodando);
+            //System.out.println("Esperar por Tecla: " + esperarPorPressionarTecla);
+
             delta = System.currentTimeMillis() - tempoUltimoLoop;
             tempoUltimoLoop = System.currentTimeMillis();
 
@@ -193,8 +239,10 @@ public class Game {
 
             nave.setMovimentoHorizontal(0);
             if ((esquerdaPressionada) && (!direitaPressionada)) {
+                System.out.println("Esquerda");
                 nave.setMovimentoHorizontal(-velocidadeDeMovimento);
             } else if ((!esquerdaPressionada) && (direitaPressionada)) {
+                System.out.println("Direita");
                 nave.setMovimentoHorizontal(velocidadeDeMovimento);
             }
 
@@ -206,6 +254,83 @@ public class Game {
                 Thread.sleep(10);
             } catch (Exception e) {
             }
+        }
+    }
+
+    private class TratadorDeEventos extends KeyAdapter {
+
+        private int contTeclasPressionadas;
+
+        public TratadorDeEventos() {
+            contTeclasPressionadas = 1;
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            //System.out.println("Tecla Pressionada");
+            if (getEsperarPorPressionarTecla()) {
+                return;
+            }
+
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                setEsquerdaPressionada(true);
+            }
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                setDireitaPressionada(true);
+            }
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                setTiroPressionado(true);
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            //System.out.println("Tecla Liberada");
+
+            if (getEsperarPorPressionarTecla()) {
+                return;
+            }
+            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+                setEsquerdaPressionada(false);
+            }
+            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                setDireitaPressionada(false);
+            }
+            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+                setTiroPressionado(false);
+            }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            System.out.print("Tecla Digitada: ");
+
+            if (getEsperarPorPressionarTecla()) {
+                if (contTeclasPressionadas == 1) {
+                    setEsperarPorPressionarTecla(false);
+                    try {
+                        startGame();
+                    } catch (IOException ex) {
+                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    contTeclasPressionadas = 0;
+                } else {
+                    contTeclasPressionadas++;
+                }
+            }
+
+            if (e.getKeyChar() == 27) {
+                System.out.println("Escape - Sair");
+                System.exit(0);//Não sei se vai funcionar, visto que é dado por um obj desta classe
+            }
+        }
+
+        public void setContTeclasPressionadas(int contTeclasPressionadas) {
+            this.contTeclasPressionadas = contTeclasPressionadas;
+        }
+
+        public int getContTeclasPressionadas() {
+            return contTeclasPressionadas;
         }
     }
 

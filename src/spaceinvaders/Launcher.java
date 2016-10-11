@@ -2,6 +2,7 @@ package spaceinvaders;
 
 import java.io.IOException;
 import spaceinvaders.game.Game;
+import spaceinvaders.game.teclado.TratadorDeEventos;
 
 /**
  *
@@ -11,7 +12,7 @@ import spaceinvaders.game.Game;
  */
 public class Launcher {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
         Game spaceInvaders = new Game();
         spaceInvaders.gameLoop();
     }

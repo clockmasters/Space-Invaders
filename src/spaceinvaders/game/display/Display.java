@@ -5,6 +5,7 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import spaceinvaders.game.teclado.TratadorDeEventos;
 
 /**
  *
@@ -42,6 +43,13 @@ public class Display extends Canvas {
         frame.setVisible(true);
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        //frame.addKeyListener(new TratadorDeEventos());
+        
+        //addKeyListener(new TratadorDeEventos());
+        painel.requestFocus();
+        painel.setIgnoreRepaint(true);
+        createBufferStrategy(2);
     }
 
     public void setLarg(int larg) {
@@ -66,5 +74,21 @@ public class Display extends Canvas {
 
     public String getAllienCont() {
         return titulo;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
+    
+    public JPanel getPainel() {
+        return painel;
+    }
+
+    public void setPainel(JPanel painel) {
+        this.painel = painel;
     }
 }

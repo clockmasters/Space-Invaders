@@ -22,11 +22,14 @@ public class TratadorDeEventos extends KeyAdapter {
     }
 
     public TratadorDeEventos(Game g) {
+        //System.out.println("Antes: " +  this.g.getEsperarPorPressionarTecla());
         contTeclasPressionadas = 1;
         this.g = g;
+        System.out.println("Depois: " +  this.g.getDireitaPressionada());
     }
 
     public void teclaPressionada(KeyEvent e) {
+        System.out.println(e.getKeyChar());
         if (g.getEsperarPorPressionarTecla()) {
             return;
         }
@@ -43,6 +46,8 @@ public class TratadorDeEventos extends KeyAdapter {
     }
 
     public void teclaLiberada(KeyEvent e) {
+        System.out.println(e.getKeyChar());
+        
         if (g.getEsperarPorPressionarTecla()) {
             return;
         }
@@ -58,6 +63,8 @@ public class TratadorDeEventos extends KeyAdapter {
     }
 
     public void teclaDigitada(KeyEvent e) throws IOException {
+       System.out.println(e.getKeyChar());
+       
         if (g.getEsperarPorPressionarTecla()) {
             if (contTeclasPressionadas == 1) {
                 g.setEsperarPorPressionarTecla(false);

@@ -22,7 +22,7 @@ public class EntidadeAlien extends Entidade {
 	 * @param x Localizacao x inicial desse alien
 	 * @param y Localizacao y inicial desse alien
 	 */
-	public EntidadeAlien(Game game,String ref,int x,int y) throws IOException {
+	public EntidadeAlien(Game game,String ref,int x,int y) throws IOException{
 		super(ref,x,y);
 		
 		this.game = game;

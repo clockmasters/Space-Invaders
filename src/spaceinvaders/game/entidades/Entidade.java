@@ -155,7 +155,7 @@ public abstract class Entidade {
      */
     public boolean colideCom(Entidade outra) {
         eu.setBounds((int) x, (int) y, sprite.getLargura(), sprite.getAltura());
-        ele.setBounds((int) x, (int) y, sprite.getLargura(), sprite.getAltura());
+        ele.setBounds((int) outra.x, (int) outra.y, outra.sprite.getLargura(), outra.sprite.getAltura());
 
         return eu.intersects(ele);
     }
@@ -164,7 +164,7 @@ public abstract class Entidade {
      * Notificação de que esta entidade colidiu com outra.
      *
      * @param outra A entidade com a qual esta colidiu
-     * 
+     *
      */
     public abstract void colidiuCom(Entidade outra);
 }
