@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import spaceinvaders.game.entidades.Entidade;
 import spaceinvaders.game.entidades.EntidadeAlien;
 import spaceinvaders.game.entidades.EntidadeNave;
+import spaceinvaders.game.entidades.EntidadeRobo;
 //import spaceinvaders.game.teclado.TratadorDeEventos;
 import spaceinvaders.game.entidades.EntidadeTiro;
 
@@ -40,7 +41,9 @@ public class Game extends Canvas {
     private double velocidadeDeMovimento;
     private long ultimoTiro;
     private long intervaloDeTiro;
-    private int allienCont;
+    private int alienCont;
+    private int roboCont;
+    private int inimigoCont;
 
     private String mensagem;
     private boolean esperarPorPressionarTecla;
@@ -120,14 +123,24 @@ public class Game extends Canvas {
         nave = new EntidadeNave(this, "spaceinvaders/game/sprites/sprnave.gif", 370, 550);
         entidades.add(nave);
 
-        allienCont = 0;
-        for (linha = 0; linha < 5; linha++) {
-            for (col = 0; col < 12; col++) {
-                Entidade alien = new EntidadeAlien(this, "spaceinvaders/game/sprites/spralien.gif", 100 + (col * 50), (50) + linha * 30);
-                entidades.add(alien);
-                allienCont++;
+        alienCont = 0;
+        roboCont = 0;
+
+        for (col = 0; col < 5; col++) {
+            for (linha = 0; linha < 11; linha++) {
+                if (col <= 1) {
+                    Entidade robo = new EntidadeRobo(this, "spaceinvaders/game/sprites/sprrobo.png", 100 + (linha * 50), (50) + col * 30);
+                    entidades.add(robo);
+                    roboCont++;
+                } else {
+                    Entidade alien = new EntidadeAlien(this, "spaceinvaders/game/sprites/spralien.gif", 100 + (linha * 50), (50) + col * 30);
+                    entidades.add(alien);
+                    alienCont++;
+                }
             }
         }
+
+        inimigoCont = alienCont + roboCont;
     }
 
     public void atualizaLogica() {
@@ -150,8 +163,9 @@ public class Game extends Canvas {
 
     public void notificaAlienMorto() {
         int i;
-        allienCont--;
-        if (allienCont == 0) {
+        inimigoCont--;
+        alienCont--;
+        if (inimigoCont == 0) {
             notificaVitoria();
         }
 
@@ -159,6 +173,34 @@ public class Game extends Canvas {
             Entidade entidade = (Entidade) entidades.get(i);
 
             if (entidade instanceof EntidadeAlien) {
+                //aumenta em 2%
+                entidade.setMovimentoHorizontal(entidade.getMovimentoHorizontal() * 1.02);
+            }
+
+            if (entidade instanceof EntidadeRobo) {
+                //aumenta em 2%
+                entidade.setMovimentoHorizontal(entidade.getMovimentoHorizontal() * 1.02);
+            }
+        }
+    }
+
+    public void notificaRoboMorto() {
+        int i;
+        inimigoCont--;
+        roboCont--;
+        if (inimigoCont == 0) {
+            notificaVitoria();
+        }
+
+        for (i = 0; i < entidades.size(); i++) {
+            Entidade entidade = (Entidade) entidades.get(i);
+
+            if (entidade instanceof EntidadeAlien) {
+                //aumenta em 2%
+                entidade.setMovimentoHorizontal(entidade.getMovimentoHorizontal() * 1.02);
+            }
+
+            if (entidade instanceof EntidadeRobo) {
                 //aumenta em 2%
                 entidade.setMovimentoHorizontal(entidade.getMovimentoHorizontal() * 1.02);
             }
@@ -325,6 +367,10 @@ public class Game extends Canvas {
             }
         }
 
+        /**
+         *
+         * @param contTeclasPressionadas
+         */
         public void setContTeclasPressionadas(int contTeclasPressionadas) {
             this.contTeclasPressionadas = contTeclasPressionadas;
         }
@@ -382,12 +428,12 @@ public class Game extends Canvas {
         return logicaNecessariaNesteLoop;
     }
 
-    public void setAllienCont(int allienCont) {
-        this.allienCont = allienCont;
+    public void setAlienCont(int alienCont) {
+        this.alienCont = alienCont;
     }
 
-    public int getAllienCont() {
-        return allienCont;
+    public int getAlienCont() {
+        return alienCont;
     }
 
     public void setUltimoTiro(long ultimoTiro) {

@@ -167,4 +167,13 @@ public abstract class Entidade {
      *
      */
     public abstract void colidiuCom(Entidade outra);
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+    
+    public void setSprite(Sprite sprite)
+    {
+        this.sprite = sprite;
+    }
 }
