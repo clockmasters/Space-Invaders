@@ -7,14 +7,13 @@ import java.awt.Graphics2D;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
-//import java.awt.event.WindowAdapter;//Se o fechar janela da classe display
-//import java.awt.event.WindowEvent;//não funcionar, usar métodos desses pacotes
 import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 //import spaceinvaders.game.display.Display;
@@ -93,13 +92,12 @@ public class Game extends Canvas {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         painel.requestFocusInWindow();
-        painel.setFocusable(true);;
+        painel.setFocusable(true);
         painel.addKeyListener(new TratadorDeEventos());
 
         addKeyListener(new TratadorDeEventos());
 
-        requestFocus();
-
+        //requestFocus();
         createBufferStrategy(2);
         estrategia = getBufferStrategy();
 
@@ -161,10 +159,12 @@ public class Game extends Canvas {
         esperarPorPressionarTecla = true;
     }
 
-    public void notificaAlienMorto() {
+    public void notificaAlienMorto(Entidade alien) {
         int i;
-        inimigoCont--;
-        alienCont--;
+        if (alien.getExplodiu()) {
+            inimigoCont--;
+            alienCont--;
+        }
         if (inimigoCont == 0) {
             notificaVitoria();
         }
@@ -174,20 +174,18 @@ public class Game extends Canvas {
 
             if (entidade instanceof EntidadeAlien) {
                 //aumenta em 2%
-                entidade.setMovimentoHorizontal(entidade.getMovimentoHorizontal() * 1.02);
-            }
-
-            if (entidade instanceof EntidadeRobo) {
-                //aumenta em 2%
-                entidade.setMovimentoHorizontal(entidade.getMovimentoHorizontal() * 1.02);
+                entidade.setMovimentoHorizontal(entidade.getMovimentoHorizontal() * 1.05);
             }
         }
     }
 
-    public void notificaRoboMorto() {
+    public void notificaRoboMorto(Entidade robo) {
         int i;
-        inimigoCont--;
-        roboCont--;
+
+        if (robo.getExplodiu()) {
+            inimigoCont--;
+            roboCont--;
+        }
         if (inimigoCont == 0) {
             notificaVitoria();
         }
@@ -195,14 +193,9 @@ public class Game extends Canvas {
         for (i = 0; i < entidades.size(); i++) {
             Entidade entidade = (Entidade) entidades.get(i);
 
-            if (entidade instanceof EntidadeAlien) {
-                //aumenta em 2%
-                entidade.setMovimentoHorizontal(entidade.getMovimentoHorizontal() * 1.02);
-            }
-
             if (entidade instanceof EntidadeRobo) {
                 //aumenta em 2%
-                entidade.setMovimentoHorizontal(entidade.getMovimentoHorizontal() * 1.02);
+                entidade.setMovimentoHorizontal(entidade.getMovimentoHorizontal() * 1.05);
             }
         }
     }
@@ -214,7 +207,7 @@ public class Game extends Canvas {
 
         ultimoTiro = System.currentTimeMillis();
         System.out.println("Espaço - Atira");
-        EntidadeTiro tiro = new EntidadeTiro(this, "spaceinvaders/game/sprites/sprtiro.gif", nave.getX() + 10, nave.getY() - 30);
+        EntidadeTiro tiro = new EntidadeTiro(this, "spaceinvaders/game/sprites/sprtiro.gif", nave.getX() + 10, nave.getY() - 10);
         entidades.add(tiro);
     }
 
@@ -302,9 +295,11 @@ public class Game extends Canvas {
     private class TratadorDeEventos extends KeyAdapter {
 
         private int contTeclasPressionadas;
+        private boolean pausa;
 
         public TratadorDeEventos() {
             contTeclasPressionadas = 1;
+            pausa = false;
         }
 
         @Override
@@ -364,6 +359,10 @@ public class Game extends Canvas {
             if (e.getKeyChar() == 27) {
                 System.out.println("Escape - Sair");
                 System.exit(0);//Não sei se vai funcionar, visto que é dado por um obj desta classe
+            } else if ((e.getKeyChar() == 80) || (e.getKeyChar() == 112)) {
+                System.out.println("P - Pausa");
+                //setJogoRodando(pausa);
+                //pausa = !pausa;
             }
         }
 
