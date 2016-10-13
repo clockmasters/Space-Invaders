@@ -84,7 +84,6 @@ public class EntidadeTiro extends Entidade {
         if (outra instanceof EntidadeRobo) {
             //remove as entidades envolvidas
             game.removeEntidade(this);
-
             if (((EntidadeRobo) outra).getVida() == 1) {
                 game.removeEntidade(outra);
                 game.notificaRoboMorto();

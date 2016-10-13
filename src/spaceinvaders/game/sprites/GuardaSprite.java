@@ -9,18 +9,40 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
+/**
+ *
+ * @author Victor Palmeira
+ * @version 1-25/09/2016, 10:51:25
+ * @languageOfComments: Portuguese
+ */
 
+/**
+ * Gerencia os Sprites usados no jogo. Carrega todos os Sprites
+ * no cache, deixando-os prontos para futuro uso.
+ * 
+ * Baseado no tutorial de Kevin Glass
+ */
 public class GuardaSprite         
 {
+    /** É a única instância da classe */
     private static GuardaSprite unico = new GuardaSprite();
-    
+    /**
+     * Faz o get da instância "unico"
+     * @return instância "unico"
+     */
     public static GuardaSprite sprite_get()
     {
         return unico;
     }
-    
+    /** Cache dos sprites, serve de referência para os Sprites */
     private HashMap sprites = new HashMap();
     
+    /**
+     * Coleta um Sprite do banco de Sprites
+     * @param spr A referência da imagem para ser usada no Sprite
+     * @return Uma instância Sprite contendo a imagem requisitada
+     * @throws IOException 
+     */
     public Sprite getSprite(String spr) throws IOException
     {
         //Se ja tivermos o sprite registrado
