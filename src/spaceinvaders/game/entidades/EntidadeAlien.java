@@ -62,6 +62,10 @@ public class EntidadeAlien extends Entidade {
 		if (y > 570) {
 			game.notificaMorte();
 		}
+                
+                if(explodiu){
+                    game.removeEntidade(this);
+                }
 	}
 	
 	/**
