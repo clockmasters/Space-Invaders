@@ -64,6 +64,7 @@ public class EntidadeTiro extends Entidade {
      */
     @Override
     public void colidiuCom(Entidade outra) {
+
         // previne mortes depois que algo foi atingido
         if (acertou) {
             return;
@@ -73,20 +74,45 @@ public class EntidadeTiro extends Entidade {
         if (outra instanceof EntidadeAlien) {
             // remove as entidades envolvidas
             game.removeEntidade(this);
-            game.removeEntidade(outra);
 
-            // Notifica o jogo que o alien foi morto
-            game.notificaAlienMorto();
+            //Substitui a entidade alien pela entidade explosao
+            try {
+                outra.setSprite(GuardaSprite.sprite_get().getSprite("spaceinvaders/game/sprites/sprExpl.png"));
+            } catch (IOException ex) {
+                Logger.getLogger(EntidadeTiro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            //Declara a explosão para posterior remoção
+            if (outra.getTangivel()) {
+                outra.setExplodiu(true);
+                outra.setTangivel(false);
+                // Notifica o jogo que o alien foi morto
+                game.notificaAlienMorto(outra);
+            }
             acertou = true;
         }
 
         //Se um robo for atingido 2 vezes, morre
         if (outra instanceof EntidadeRobo) {
-            //remove as entidades envolvidas
+            //Remove as entidades envolvidas
             game.removeEntidade(this);
             if (((EntidadeRobo) outra).getVida() == 1) {
-                game.removeEntidade(outra);
-                game.notificaRoboMorto();
+
+                //Substitui a entidade alien pela entidade explosao
+                try {
+                    outra.setSprite(GuardaSprite.sprite_get().getSprite("spaceinvaders/game/sprites/sprExpl.png"));
+                } catch (IOException ex) {
+                    Logger.getLogger(EntidadeTiro.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                //Declara a explosão para posterior remoção
+                if (outra.getTangivel()) {
+                    outra.setExplodiu(true);
+                    outra.setTangivel(false);
+
+                    //Notifica o robo morto
+                    game.notificaRoboMorto(outra);
+                }
             } else {
                 ((EntidadeRobo) outra).setVida(((EntidadeRobo) outra).getVida() - 1);
                 try {
