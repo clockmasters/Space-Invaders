@@ -11,11 +11,11 @@ import spaceinvaders.game.Game;
 public class EntidadeRobo extends Entidade {
 
     /**
-     * A velocidade em que o alien se move horizontamente
+     * A velocidade em que o robô se move horizontamente
      */
     private double moveSpeed = 75;
     /**
-     * A quantidade de tiros que o alien pode receber
+     * A quantidade de tiros que o robô pode receber
      */
     private int vida;
     /**
@@ -27,9 +27,9 @@ public class EntidadeRobo extends Entidade {
      * Cria nova entidade alien
      *
      * @param game O jogo no qual a entidade esta sendo criada
-     * @param ref O sprite que deve ser usado por esse alien
-     * @param x Localizacao x inicial desse alien
-     * @param y Localizacao y inicial desse alien
+     * @param ref O sprite que deve ser usado por esse robô
+     * @param x Localizacao x inicial desse robô
+     * @param y Localizacao y inicial desse robô
      */
     public EntidadeRobo(Game game, String ref, int x, int y) throws IOException {
         super(ref, x, y);

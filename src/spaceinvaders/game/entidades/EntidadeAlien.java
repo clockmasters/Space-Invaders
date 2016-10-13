@@ -11,8 +11,6 @@ import spaceinvaders.game.Game;
 public class EntidadeAlien extends Entidade {
 	/** A velocidade em que o alien se move horizontamente */
 	private double moveSpeed = 75;
-        /** A quantidade de tiros que o alien pode receber */
-        private int vida = 1;
 	/** O jogo no qual a classe entidade existe */
 	private Game game;
 	
