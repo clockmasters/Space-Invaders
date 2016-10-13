@@ -52,6 +52,16 @@ public abstract class Entidade {
     private Rectangle ele;
 
     /**
+     * Se explodiu
+     */
+    protected boolean explodiu;
+
+    /**
+     * Se é tangível
+     */
+    protected boolean tangivel;
+
+    /**
      * Constrói a entidade baseado em um sprite e uma localização
      *
      * @param ref A referência, o caminho, da imagem carregada por esta entidade
@@ -61,6 +71,8 @@ public abstract class Entidade {
     public Entidade(String ref, int x, int y) throws IOException {
         eu = new Rectangle();
         ele = new Rectangle();
+        explodiu = false;
+        tangivel = true;
         sprite = GuardaSprite.sprite_get().getSprite(ref);
         this.x = x;
         this.y = y;
@@ -171,9 +183,24 @@ public abstract class Entidade {
     public Sprite getSprite() {
         return sprite;
     }
-    
-    public void setSprite(Sprite sprite)
-    {
+
+    public void setSprite(Sprite sprite) {
         this.sprite = sprite;
+    }
+
+    public boolean getExplodiu() {
+        return explodiu;
+    }
+
+    public void setExplodiu(boolean explodiu) {
+        this.explodiu = explodiu;
+    }
+
+    public boolean getTangivel() {
+        return tangivel;
+    }
+
+    public void setTangivel(boolean tangivel) {
+        this.tangivel = tangivel;
     }
 }
