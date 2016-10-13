@@ -4,7 +4,7 @@ import java.io.IOException;
 import spaceinvaders.game.Game;
 
 /**
- * Uma entidade que representa um dos aliens invasores.
+ * Uma entidade que representa um dos robôs invasores.
  *
  * @author Joao Victor Carneiro
  */
@@ -13,7 +13,7 @@ public class EntidadeRobo extends Entidade {
     /**
      * A velocidade em que o robô se move horizontamente
      */
-    private double moveSpeed = 75;
+    private double moveSpeed = 85;
     /**
      * A quantidade de tiros que o robô pode receber
      */
@@ -62,6 +62,7 @@ public class EntidadeRobo extends Entidade {
     /**
      * Atualiza o a logica do jogo relativa aos aliens
      */
+    @Override
     public void fazLogica() {
         // inverte o movimento horizontal e abaixa a tela um pouco
         dx = -dx;
@@ -71,6 +72,10 @@ public class EntidadeRobo extends Entidade {
         if (y > 570) {
             game.notificaMorte();
         }
+        
+        if (explodiu) {
+            game.removeEntidade(this);
+        }
     }
 
     /**
@@ -79,13 +84,13 @@ public class EntidadeRobo extends Entidade {
      * @param outra a outra entidade
      */
     public void colidiuCom(Entidade outra) {
-        // colisoes com alien nao sao descritas aqui
+        // colisoes com robos nao sao descritas aqui
     }
-
+    
     public int getVida() {
         return vida;
     }
-
+    
     public void setVida(int vida) {
         this.vida = vida;
     }
