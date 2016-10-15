@@ -1,27 +1,15 @@
 package spaceinvaders.game;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics2D;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferStrategy;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
-//import spaceinvaders.game.display.Display;
+import spaceinvaders.game.display.Display;
 import spaceinvaders.game.entidades.Entidade;
 import spaceinvaders.game.entidades.EntidadeAlien;
 import spaceinvaders.game.entidades.EntidadeNave;
 import spaceinvaders.game.entidades.EntidadeRobo;
-//import spaceinvaders.game.teclado.TratadorDeEventos;
+import spaceinvaders.game.teclado.TratadorDeEventos;
 import spaceinvaders.game.entidades.EntidadeTiro;
 
 /**
@@ -30,13 +18,13 @@ import spaceinvaders.game.entidades.EntidadeTiro;
  * @version 1-25/09/2016, 21:03:13
  * @languageOfComments: Portuguese
  */
-public class Game extends Canvas {
+public class Game {
 
-    private BufferStrategy estrategia;//
     private boolean jogoRodando;
     private ArrayList entidades;
     private ArrayList removeLista;
-    private Entidade nave;//
+    private Entidade nave;
+    private Display tela;
     private double velocidadeDeMovimento;
     private long ultimoTiro;
     private long intervaloDeTiro;
@@ -66,40 +54,8 @@ public class Game extends Canvas {
         tiroPressionado = false;
         logicaNecessariaNesteLoop = false;
 
-        //Display tela = new Display("Space Invaders", 600, 800);
-        //tela.getPainel().addKeyListener(new TratadorDeEventos());
-        //tela.requestFocus();//Não sei pra que serve
-        //tela.setIgnoreRepaint(true);//Não sei pra que serve
-        //tela.createBufferStrategy(2);//Não sei pra que serve
-        //tela.getPainel().addKeyListener(new TratadorDeEventos(this));
-        //estrategia = tela.getBufferStrategy();//Não sei pra que serve
-        JFrame frame = new JFrame("Space Invaders!");
-        JPanel painel = (JPanel) frame.getContentPane();
-        //Canvas canvas = new Canvas();
-
-        painel.setPreferredSize(new Dimension(800, 600));
-        painel.setLayout(null);
-
-        setBounds(0, 0, 800, 600);
-        painel.add(this);
-
-        setIgnoreRepaint(true);
-
-        frame.pack();
-        frame.setResizable(false);
-        frame.setVisible(true);
-        frame.setLocationRelativeTo(null);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        painel.requestFocusInWindow();
-        painel.setFocusable(true);
-        painel.addKeyListener(new TratadorDeEventos());
-
-        addKeyListener(new TratadorDeEventos());
-
-        //requestFocus();
-        createBufferStrategy(2);
-        estrategia = getBufferStrategy();
+        tela = new Display("Space Invaders da Zueira!", 600, 800);
+        tela.getPainel().addKeyListener(new TratadorDeEventos(this));
 
         initEntidades();
     }
@@ -219,15 +175,11 @@ public class Game extends Canvas {
         System.out.println("gameLoop");
 
         while (jogoRodando) {
-            //System.out.println("Jogo Rodando: " + jogoRodando);
-            //System.out.println("Esperar por Tecla: " + esperarPorPressionarTecla);
 
             delta = System.currentTimeMillis() - tempoUltimoLoop;
             tempoUltimoLoop = System.currentTimeMillis();
 
-            Graphics2D g = (Graphics2D) estrategia.getDrawGraphics();
-            g.setColor(Color.black);
-            g.fillRect(0, 0, 800, 600);
+            tela.criaContextoGrafico(this);
 
             if (!esperarPorPressionarTecla) {
                 for (i = 0; i < entidades.size(); i++) {
@@ -238,7 +190,7 @@ public class Game extends Canvas {
 
             for (i = 0; i < entidades.size(); i++) {
                 Entidade entidade = (Entidade) entidades.get(i);
-                entidade.desenha(g);
+                entidade.desenha(tela.getContextoGrafico());
             }
 
             for (i = 0; i < entidades.size(); i++) {
@@ -264,13 +216,10 @@ public class Game extends Canvas {
             }
 
             if (esperarPorPressionarTecla) {
-                g.setColor(Color.white);
-                g.drawString(mensagem, (800 - g.getFontMetrics().stringWidth(mensagem)) / 2, 250);
-                g.drawString("Pressione qualquer Tecla", (800 - g.getFontMetrics().stringWidth("Pressione Qualquer Tecla")) / 2, 300);
+                tela.imprimeMensagem(this, "Pressione qualquer Tecla");
             }
 
-            g.dispose();
-            estrategia.show();
+            tela.desenhaGraficos();
 
             nave.setMovimentoHorizontal(0);
             if ((esquerdaPressionada) && (!direitaPressionada)) {
@@ -289,93 +238,6 @@ public class Game extends Canvas {
                 Thread.sleep(10);
             } catch (Exception e) {
             }
-        }
-    }
-
-    private class TratadorDeEventos extends KeyAdapter {
-
-        private int contTeclasPressionadas;
-        private boolean pausa;
-
-        public TratadorDeEventos() {
-            contTeclasPressionadas = 1;
-            pausa = false;
-        }
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            //System.out.println("Tecla Pressionada");
-            if (getEsperarPorPressionarTecla()) {
-                return;
-            }
-
-            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                setEsquerdaPressionada(true);
-            }
-            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                setDireitaPressionada(true);
-            }
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                setTiroPressionado(true);
-            }
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            //System.out.println("Tecla Liberada");
-
-            if (getEsperarPorPressionarTecla()) {
-                return;
-            }
-            if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-                setEsquerdaPressionada(false);
-            }
-            if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                setDireitaPressionada(false);
-            }
-            if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-                setTiroPressionado(false);
-            }
-        }
-
-        @Override
-        public void keyTyped(KeyEvent e) {
-            System.out.print("Tecla Digitada: ");
-
-            if (getEsperarPorPressionarTecla()) {
-                if (contTeclasPressionadas == 1) {
-                    setEsperarPorPressionarTecla(false);
-                    try {
-                        startGame();
-                    } catch (IOException ex) {
-                        Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    contTeclasPressionadas = 0;
-                } else {
-                    contTeclasPressionadas++;
-                }
-            }
-
-            if (e.getKeyChar() == 27) {
-                System.out.println("Escape - Sair");
-                System.exit(0);//Não sei se vai funcionar, visto que é dado por um obj desta classe
-            } else if ((e.getKeyChar() == 80) || (e.getKeyChar() == 112)) {
-                System.out.println("P - Pausa");
-                //setJogoRodando(pausa);
-                //pausa = !pausa;
-            }
-        }
-
-        /**
-         *
-         * @param contTeclasPressionadas
-         */
-        public void setContTeclasPressionadas(int contTeclasPressionadas) {
-            this.contTeclasPressionadas = contTeclasPressionadas;
-        }
-
-        public int getContTeclasPressionadas() {
-            return contTeclasPressionadas;
         }
     }
 
