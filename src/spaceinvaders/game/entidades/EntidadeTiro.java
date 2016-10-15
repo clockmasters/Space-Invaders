@@ -78,7 +78,7 @@ public class EntidadeTiro extends Entidade {
 
             //Substitui a entidade alien pela entidade explosao
             try {
-                outra.setSprite(GuardaSprite.sprite_get().getSprite("spaceinvaders/game/sprites/sprExpl.png"));
+                outra.setSprite(GuardaSprite.sprite_get().getSprite("spaceinvaders/game/sprites/img/sprExpl.png"));
             } catch (IOException ex) {
                 Logger.getLogger(EntidadeTiro.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -101,7 +101,7 @@ public class EntidadeTiro extends Entidade {
 
                 //Substitui a entidade alien pela entidade explosao
                 try {
-                    outra.setSprite(GuardaSprite.sprite_get().getSprite("spaceinvaders/game/sprites/sprExpl.png"));
+                    outra.setSprite(GuardaSprite.sprite_get().getSprite("spaceinvaders/game/sprites/img/sprExpl.png"));
                 } catch (IOException ex) {
                     Logger.getLogger(EntidadeTiro.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -117,7 +117,7 @@ public class EntidadeTiro extends Entidade {
             } else {
                 ((EntidadeRobo) outra).setVida(((EntidadeRobo) outra).getVida() - 1);
                 try {
-                    outra.setSprite(GuardaSprite.sprite_get().getSprite("spaceinvaders/game/sprites/sprrobo_1.png"));
+                    outra.setSprite(GuardaSprite.sprite_get().getSprite("spaceinvaders/game/sprites/img/sprrobo_1.png"));
                 } catch (IOException ex) {
                     Logger.getLogger(EntidadeTiro.class.getName()).log(Level.SEVERE, null, ex);
                 }
