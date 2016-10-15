@@ -4,12 +4,12 @@ import java.io.IOException;
 import spaceinvaders.game.Game;
 
 /**
- * A entidade que representa a nave do jogador
+ * Entidade que representa a nave do jogador.
  * 
  * @author Joao Victor Carneiro
  */
 public class EntidadeNave extends Entidade {
-	/** O jogo no qual a entidade existe */
+	/** O jogo no qual a entidade existe. */
 	private Game game;
 	
 	/**
@@ -27,10 +27,11 @@ public class EntidadeNave extends Entidade {
 	}
 	
 	/**
-	 * Pede para que a nave se move baseado no tempo corrido
+	 * Pede para que a nave se move baseado no tempo corrido.
 	 * 
-	 * @param delta Tempo passado desde o ultimo movimento(ms)
+	 * @param delta Tempo passado desde o ultimo movimento(ms).
 	 */
+        @Override
 	public void mover(long delta) {
 		// se esta se movendo para esquerda mas atinge o limite esquerdo
 		// da tela, nao se move
@@ -47,15 +48,19 @@ public class EntidadeNave extends Entidade {
 	}
 	
 	/**
-	 * Notificacao de que a nave do jogador colidiu com algo
+	 * Notificacao de que a nave do jogador colidiu com algo.
 	 * 
-	 * @param outra A entidade com a qual a nave colidiu
+	 * @param outra A entidade com a qual a nave colidiu.
 	 */
         
+        @Override
 	public void colidiuCom(Entidade outra) {
 		// se for um alien, notifica o jogo que o jogador morreu
 		if (outra instanceof EntidadeAlien) {
 			game.notificaMorte();
 		}
+                if (outra instanceof EntidadeRobo) {
+                    game.notificaMorte();
+                }
 	}
 }

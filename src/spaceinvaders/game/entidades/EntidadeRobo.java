@@ -4,32 +4,32 @@ import java.io.IOException;
 import spaceinvaders.game.Game;
 
 /**
- * Uma entidade que representa um dos robôs invasores.
+ * Entidade que representa um dos robôs invasores.
  *
  * @author Joao Victor Carneiro
  */
 public class EntidadeRobo extends Entidade {
 
     /**
-     * A velocidade em que o robô se move horizontamente
+     * A velocidade em que o robô se move horizontamente.
      */
     private double moveSpeed = 85;
     /**
-     * A quantidade de tiros que o robô pode receber
+     * A quantidade de tiros que o robô pode receber.
      */
     private int vida;
     /**
-     * O jogo no qual a classe entidade existe
+     * O jogo no qual a classe entidade existe.
      */
     private Game game;
 
     /**
-     * Cria nova entidade alien
+     * Cria nova entidade alien.
      *
-     * @param game O jogo no qual a entidade esta sendo criada
-     * @param ref O sprite que deve ser usado por esse robô
-     * @param x Localizacao x inicial desse robô
-     * @param y Localizacao y inicial desse robô
+     * @param game O jogo no qual a entidade esta sendo criada.
+     * @param ref O sprite que deve ser usado por esse robô.
+     * @param x Localizacao x inicial desse robô.
+     * @param y Localizacao y inicial desse robô.
      */
     public EntidadeRobo(Game game, String ref, int x, int y) throws IOException {
         super(ref, x, y);
@@ -39,9 +39,9 @@ public class EntidadeRobo extends Entidade {
     }
 
     /**
-     * Pede para que esse alien ande baseado no tempo corrido
+     * Pede para que esse alien ande baseado no tempo corrido.
      *
-     * @param delta O tempo que passou desde o ultimo movimento
+     * @param delta O tempo que passou desde o ultimo movimento.
      */
     public void mover(long delta) {
         // se atingir o limite esquerdo da tela e estiver movendo para 
@@ -60,7 +60,7 @@ public class EntidadeRobo extends Entidade {
     }
 
     /**
-     * Atualiza o a logica do jogo relativa aos aliens
+     * Atualiza o a logica do jogo relativa aos aliens.
      */
     @Override
     public void fazLogica() {
@@ -79,18 +79,26 @@ public class EntidadeRobo extends Entidade {
     }
 
     /**
-     * Notificacao de que esse alien colidiu com outra entidade
+     * Notificacao de que esse alien colidiu com outra entidade.
      *
-     * @param outra a outra entidade
+     * @param outra A outra entidade.
      */
     public void colidiuCom(Entidade outra) {
         // colisoes com robos nao sao descritas aqui
     }
     
+    /**
+     * Retorna a quantidade de vida atual do robô.
+     * @return int contendo vida restante.
+     */
     public int getVida() {
         return vida;
     }
     
+    /**
+     * Altera o valor de vida restante do robô.
+     * @param vida int contendo vida a ser definida.
+     */
     public void setVida(int vida) {
         this.vida = vida;
     }

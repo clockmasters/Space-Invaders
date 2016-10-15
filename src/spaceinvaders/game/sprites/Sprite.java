@@ -24,21 +24,21 @@ import java.awt.Image;
 public class Sprite 
 {
     /**
-     * Imagem a ser desenhada para o Sprite
+     * Imagem a ser desenhada para o Sprite.
      */
     private Image img;
     
     /**
-     * Cria um novo Sprite para a imagem "img"
-     * @param img A imagem a ser carregada
+     * Cria um novo Sprite para a imagem "img".
+     * @param img A imagem a ser carregada.
      */
     public Sprite(Image img)
     {
         this.img = img;
     }
     /**
-     * Retorna a largura da imagem do Sprite
-     * @return  largura (em pixels)
+     * Retorna a largura da imagem do Sprite.
+     * @return  largura (em pixels).
      */  
     public int getLargura()
     {
@@ -46,8 +46,8 @@ public class Sprite
     }
     
     /**
-     * Retorna a altura da imagem do Sprite
-     * @return altura (em pixels)
+     * Retorna a altura da imagem do Sprite.
+     * @return altura (em pixels).
      */
     public int getAltura()
     {
@@ -57,9 +57,9 @@ public class Sprite
     /**
      * Desenha o Sprite no contexto gráfico "grap" e
      * na posição especificada.
-     * @param grap O contexto gráfico em questão
-     * @param x A coordenada x onde o sprite será desenhado
-     * @param y A coordenada y onde o sprite será desenhado
+     * @param grap O contexto gráfico em questão.
+     * @param x A coordenada x onde o sprite será desenhado.
+     * @param y A coordenada y onde o sprite será desenhado.
      */
     public void desenhar(Graphics grap, int x, int y)
     {

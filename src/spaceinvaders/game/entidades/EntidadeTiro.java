@@ -7,7 +7,7 @@ import spaceinvaders.game.Game;
 import spaceinvaders.game.sprites.GuardaSprite;
 
 /**
- * Entidade representando o tiro
+ * Entidade representando tiros.
  *
  * @author Joao Victor Carneiro
  */
@@ -43,10 +43,11 @@ public class EntidadeTiro extends Entidade {
     }
 
     /**
-     * Pede para que o tiro se move baseado no tempo corrido
+     * Pede para que o tiro se mova baseado no tempo decorrido.
      *
-     * @param delta O tempo que passou desde o ultimo movimento
+     * @param delta O tempo que passou desde o ultimo movimento.
      */
+    @Override
     public void mover(long delta) {
         // continua com o movimento normal
         super.mover(delta);
@@ -58,9 +59,9 @@ public class EntidadeTiro extends Entidade {
     }
 
     /**
-     * Notificacao de que esse tiro colidiu com outra entidade
+     * Notificacao de que esse tiro colidiu com outra entidade.
      *
-     * @param outra a outra entidade com a qual colidiu
+     * @param outra a outra entidade com a qual colidiu.
      */
     @Override
     public void colidiuCom(Entidade outra) {

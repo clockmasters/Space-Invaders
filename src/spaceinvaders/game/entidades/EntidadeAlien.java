@@ -4,14 +4,14 @@ import java.io.IOException;
 import spaceinvaders.game.Game;
 
 /**
- * Uma entidade que representa um dos aliens invasores.
+ * Entidade que representa um dos aliens invasores.
  * 
  * @author Joao Victor Carneiro
  */
 public class EntidadeAlien extends Entidade {
-	/** A velocidade em que o alien se move horizontamente */
+	/** A velocidade em que o alien se move horizontamente. */
 	private double moveSpeed = 75;
-	/** O jogo no qual a classe entidade existe */
+	/** O jogo no qual a classe entidade existe. */
 	private Game game;
 	
 	/**
@@ -34,6 +34,7 @@ public class EntidadeAlien extends Entidade {
 	 * 
 	 * @param delta O tempo que passou desde o ultimo movimento
 	 */
+        @Override
 	public void mover(long delta) {
 		// se atingir o limite esquerdo da tela e estiver movendo para 
 		// a esquerda, pede uma atualizacao na logica 
@@ -51,8 +52,9 @@ public class EntidadeAlien extends Entidade {
 	}
 	
 	/**
-	 * Atualiza o a logica do jogo relativa aos aliens
+	 * Atualiza o a logica do jogo relativa aos aliens.
 	 */
+        @Override
 	public void fazLogica() {
 		// inverte o movimento horizontal e abaixa a tela um pouco
 		dx = -dx;
@@ -73,6 +75,7 @@ public class EntidadeAlien extends Entidade {
 	 * 
 	 * @param outra a outra entidade
 	 */
+        @Override
 	public void colidiuCom(Entidade outra) {
 		// colisoes com alien nao sao descritas aqui
 	}

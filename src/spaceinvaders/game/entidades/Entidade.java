@@ -19,7 +19,7 @@ import spaceinvaders.game.sprites.Sprite;
  * @version 1-27/09/2016, 11:23:09
  * @languageOfComments: Portuguese
  */
-public abstract class Entidade {
+public abstract class Entidade implements Tangivel{
 
     /**
      * Posição x da entidade.
@@ -52,21 +52,22 @@ public abstract class Entidade {
     private Rectangle ele;
 
     /**
-     * Se explodiu
+     * Se explodiu.
      */
     protected boolean explodiu;
 
     /**
-     * Se é tangível
+     * Se é tangível.
      */
     protected boolean tangivel;
 
     /**
-     * Constrói a entidade baseado em um sprite e uma localização
+     * Constrói a entidade baseado em um sprite e uma localização.
      *
      * @param ref A referência, o caminho, da imagem carregada por esta entidade
      * @param x A localização horizontal desta entidade
      * @param y A localização vertical desta entidade
+     * @throws java.io.IOException
      */
     public Entidade(String ref, int x, int y) throws IOException {
         eu = new Rectangle();
@@ -78,93 +79,52 @@ public abstract class Entidade {
         this.y = y;
     }
 
-    /**
-     * Faz com que a Entidade se mova baseada em uma certa quantidade de tempo
-     * passada
-     *
-     * @param delta A quantidade de tempo que passou em milisegundos
-     */
+    @Override
     public void mover(long delta) {
         x += (delta * dx) / 1000;
         y += (delta * dy) / 1000;
     }
 
-    /**
-     * Altera a velocidade horizontal desta entidade.
-     *
-     * @param dx Nova velocidade horizontal desta entidade(pixels/s)
-     */
+    @Override
     public void setMovimentoHorizontal(double dx) {
         this.dx = dx;
     }
 
-    /**
-     * Altera a velocidade vertical desta entidade.
-     *
-     * @param dy Nova velocidade vertical desta entidade(pixels/s)
-     */
+    @Override
     public void setMovimentoVertical(double dy) {
         this.dy = dy;
     }
 
-    /**
-     * Retorna a velocidade horizontal desta entidade.
-     *
-     * @return Velocidade horizontal desta entidade(pixels/s)
-     */
+    @Override
     public double getMovimentoHorizontal() {
         return dx;
     }
 
-    /**
-     * Retorna a velocidade vertical desta entidade.
-     *
-     * @return Velocidade vertical desta entidade(pixels/s)
-     */
+    @Override
     public double getMovimentoVertical() {
         return dy;
     }
 
-    /**
-     * Desenha a entidade para o contexto gráfico fornecido.
-     *
-     * @param g o contexto gráfico fornecido no qual irá desenhar a entidade
-     */
+    @Override
     public void desenha(Graphics g) {
         sprite.desenhar(g, (int) x, (int) y);
     }
 
-    /**
-     * Lógica associada com a entidade. Não tem uso ainda
-     *
-     */
+    @Override
     public void fazLogica() {
     }
 
-    /**
-     * Retorna a posição x desta unidade.
-     *
-     * @return Posição em inteiro x desta entidade
-     */
+    @Override
     public int getX() {
         return (int) x;
     }
 
-    /**
-     * Retorna a posição y desta entidade.
-     *
-     * @return Posição em inteiro y desta entidade
-     */
+    @Override
     public int getY() {
         return (int) y;
     }
 
-    /**
-     * Checa se esta entidade colidiu com uma outra
-     *
-     * @param outra A outra entidade com a qual deseja-se verificar a colisão
-     * @return Verdade se esta entidade colide com a outra
-     */
+    @Override
     public boolean colideCom(Entidade outra) {
         eu.setBounds((int) x, (int) y, sprite.getLargura(), sprite.getAltura());
         ele.setBounds((int) outra.x, (int) outra.y, outra.sprite.getLargura(), outra.sprite.getAltura());
@@ -172,34 +132,35 @@ public abstract class Entidade {
         return eu.intersects(ele);
     }
 
-    /**
-     * Notificação de que esta entidade colidiu com outra.
-     *
-     * @param outra A entidade com a qual esta colidiu
-     *
-     */
+    @Override
     public abstract void colidiuCom(Entidade outra);
 
+    @Override
     public Sprite getSprite() {
         return sprite;
     }
 
+    @Override
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
 
+    @Override
     public boolean getExplodiu() {
         return explodiu;
     }
 
+    @Override
     public void setExplodiu(boolean explodiu) {
         this.explodiu = explodiu;
     }
 
+    @Override
     public boolean getTangivel() {
         return tangivel;
     }
 
+    @Override
     public void setTangivel(boolean tangivel) {
         this.tangivel = tangivel;
     }
