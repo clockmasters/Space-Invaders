@@ -74,7 +74,7 @@ public class Game {
     private void initEntidades() throws IOException {
         System.out.println("initEntities");
         int linha, col;
-        nave = new EntidadeNave(this, "spaceinvaders/game/sprites/sprnave.gif", 370, 550);
+        nave = new EntidadeNave(this, "spaceinvaders/game/sprites/img/sprnave.gif", 370, 550);
         entidades.add(nave);
 
         alienCont = 0;
@@ -83,11 +83,11 @@ public class Game {
         for (col = 0; col < 5; col++) {
             for (linha = 0; linha < 11; linha++) {
                 if (col <= 1) {
-                    Entidade robo = new EntidadeRobo(this, "spaceinvaders/game/sprites/sprrobo.png", 100 + (linha * 50), (50) + col * 30);
+                    Entidade robo = new EntidadeRobo(this, "spaceinvaders/game/sprites/img/sprrobo.png", 100 + (linha * 50), (50) + col * 30);
                     entidades.add(robo);
                     roboCont++;
                 } else {
-                    Entidade alien = new EntidadeAlien(this, "spaceinvaders/game/sprites/spralien.gif", 100 + (linha * 50), (50) + col * 30);
+                    Entidade alien = new EntidadeAlien(this, "spaceinvaders/game/sprites/img/spralien.gif", 100 + (linha * 50), (50) + col * 30);
                     entidades.add(alien);
                     alienCont++;
                 }
@@ -163,7 +163,7 @@ public class Game {
 
         ultimoTiro = System.currentTimeMillis();
         System.out.println("Espaço - Atira");
-        EntidadeTiro tiro = new EntidadeTiro(this, "spaceinvaders/game/sprites/sprtiro.gif", nave.getX() + 10, nave.getY() - 10);
+        EntidadeTiro tiro = new EntidadeTiro(this, "spaceinvaders/game/sprites/img/sprtiro.gif", nave.getX() + 10, nave.getY() - 10);
         entidades.add(tiro);
     }
 
