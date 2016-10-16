@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import spaceinvaders.game.Game;
+import spaceinvaders.game.audio.Audio;
 import spaceinvaders.game.sprites.GuardaSprite;
 
 /**
@@ -85,6 +86,11 @@ public class EntidadeTiro extends Entidade {
 
             //Declara a explosão para posterior remoção
             if (outra.getTangivel()) {
+                try {
+                    Audio.playEfeito("src/spaceinvaders/game/audio/alienDeath.wav");
+                } catch (IOException ex) {
+                    Logger.getLogger(EntidadeTiro.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 outra.setExplodiu(true);
                 outra.setTangivel(false);
                 // Notifica o jogo que o alien foi morto
@@ -108,6 +114,11 @@ public class EntidadeTiro extends Entidade {
 
                 //Declara a explosão para posterior remoção
                 if (outra.getTangivel()) {
+                    try {
+                        Audio.playEfeito("src/spaceinvaders/game/audio/explode.wav");
+                    } catch (IOException ex) {
+                        Logger.getLogger(EntidadeTiro.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     outra.setExplodiu(true);
                     outra.setTangivel(false);
 
@@ -118,6 +129,7 @@ public class EntidadeTiro extends Entidade {
                 ((EntidadeRobo) outra).setVida(((EntidadeRobo) outra).getVida() - 1);
                 try {
                     outra.setSprite(GuardaSprite.sprite_get().getSprite("spaceinvaders/game/sprites/img/sprrobo_1.png"));
+                    Audio.playEfeito("src/spaceinvaders/game/audio/robotDamage.wav");
                 } catch (IOException ex) {
                     Logger.getLogger(EntidadeTiro.class.getName()).log(Level.SEVERE, null, ex);
                 }
