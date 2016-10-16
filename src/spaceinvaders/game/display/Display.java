@@ -12,18 +12,51 @@ import javax.swing.JPanel;
 import spaceinvaders.game.Game;
 
 /**
+ * Classe responsável pelo gerenciamento da janela principal do jogo e dos seus
+ * gráficos(entidades).
  *
  * @author douglas
  * @version 1-25/09/2016, 21:31:35
  * @languageOfComments: Portuguese
+ *
  */
 public class Display extends Canvas {
 
+    /**
+     * Frame principal da janela do jogo.
+     */
     private JFrame frame;
+
+    /**
+     * Painel onde os gráficos do jogo são desenhados.
+     */
     private JPanel painel;
+
+    /**
+     * Título da janela do game.
+     */
     private String titulo;
-    private int alt, larg;
+
+    /**
+     * Altura da janela do jogo.
+     */
+    private int alt;
+
+    /**
+     * Largura da janela do jogo.
+     */
+    private int larg;
+
+    /**
+     * Buffer para armazenamento da estrategia gráfica para o jogo, permitindo
+     * alteração de pagina acelerada.
+     */
     private BufferStrategy estrategia;
+
+    /**
+     * Contexto gráfico 2D para o jogo para ser armazenado no buffer de
+     * estrategia.
+     */
     private Graphics2D contextoGrafico;
 
     /**
@@ -44,7 +77,7 @@ public class Display extends Canvas {
 
     /**
      * Cria a Janela para o jogo e Estratégia para alocação de memória dos
-     * gráficos
+     * gráficos.
      */
     public void criaDisplay() {
         frame = new JFrame(titulo);
@@ -83,7 +116,7 @@ public class Display extends Canvas {
 
     /**
      * Desvincula o contexto gráfico da tela liberando recursos do sistema e
-     * desenha os últimos gráficos armazenados no buffer de estratégia
+     * desenha os últimos gráficos armazenados no buffer de estratégia.
      *
      */
     public void desenhaGraficos() {
