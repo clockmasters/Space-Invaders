@@ -9,6 +9,8 @@ import java.util.logging.Logger;//Devido a excessão de teclado IOException
 import spaceinvaders.game.Game;
 
 /**
+ * Classe Ouvinte de Eventos responsável por ouvir e identificar os eventos de
+ * teclado jogo.
  *
  * @author douglas
  * @version 1-25/09/2016, 23:55:52
@@ -16,7 +18,14 @@ import spaceinvaders.game.Game;
  */
 public class TratadorDeEventos extends KeyAdapter {
 
+    /**
+     * Armazena a quantidade de teclas pressionadas no loop do jogo atual.
+     */
     private int contTeclasPressionadas;
+
+    /**
+     * Jogo que está sendo executado no momento.
+     */
     private Game game;
     //private boolean pausa;
 
