@@ -3,6 +3,9 @@ package spaceinvaders.game;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import spaceinvaders.game.audio.Audio;
 
 import spaceinvaders.game.display.Display;
 import spaceinvaders.game.entidades.Entidade;
@@ -164,6 +167,7 @@ public class Game {
         ultimoTiro = System.currentTimeMillis();
         System.out.println("Espaço - Atira");
         EntidadeTiro tiro = new EntidadeTiro(this, "spaceinvaders/game/sprites/img/sprtiro.gif", nave.getX() + 10, nave.getY() - 10);
+        Audio.playEfeito("src/spaceinvaders/game/audio/laserBlast.wav");
         entidades.add(tiro);
     }
 
@@ -216,7 +220,10 @@ public class Game {
             }
 
             if (esperarPorPressionarTecla) {
-                tela.imprimeMensagem(this, "Pressione qualquer Tecla");
+                tela.imprimeMensagem(this, mensagem);
+                if (inimigoCont == 55) {
+                    mensagem = "Pressione qualquer Tecla";
+                }
             }
 
             tela.desenhaGraficos();
