@@ -20,7 +20,12 @@ import sun.audio.AudioStream;
  * @languageOfComments: Portuguese
  */
 public class Audio {
-
+    
+    /**
+     * Toca o arquivo WAV do efeito especificado pelo parâmetro caminho
+     * @param caminho Caminho relativo até o arquivo WAV do efeito
+     * @throws IOException 
+     */
     public static void playEfeito(String caminho) throws IOException {
         try {
             caminho = new File(caminho).getAbsolutePath();
@@ -32,7 +37,10 @@ public class Audio {
             fail("Falha ao carregar: " + caminho);
         }
     }
-
+    /**
+     * Método para imprimir mensagem de falha em encontrar arquivo WAV
+     * @param msg 
+     */
     private static void fail(String msg) {
         System.err.println(msg);
         System.exit(0);
