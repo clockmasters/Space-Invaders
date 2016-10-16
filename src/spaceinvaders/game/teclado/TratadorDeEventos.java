@@ -3,6 +3,8 @@ package spaceinvaders.game.teclado;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
+import java.util.logging.Level;//Devido a excessão de teclado IOException
+import java.util.logging.Logger;//Devido a excessão de teclado IOException
 
 import spaceinvaders.game.Game;
 
@@ -15,68 +17,77 @@ import spaceinvaders.game.Game;
 public class TratadorDeEventos extends KeyAdapter {
 
     private int contTeclasPressionadas;
-    private Game g;
+    private Game game;
+    //private boolean pausa;
 
     public TratadorDeEventos() {
         contTeclasPressionadas = 1;
+        //pausa = false;
     }
 
-    public TratadorDeEventos(Game g) {
-        //System.out.println("Antes: " +  this.g.getEsperarPorPressionarTecla());
+    public TratadorDeEventos(Game game) {
         contTeclasPressionadas = 1;
-        this.g = g;
-        System.out.println("Depois: " +  this.g.getDireitaPressionada());
+        this.game = game;
     }
 
-    public void teclaPressionada(KeyEvent e) {
-        System.out.println(e.getKeyChar());
-        if (g.getEsperarPorPressionarTecla()) {
+    @Override
+    public void keyPressed(KeyEvent e) {
+        if (game.getEsperarPorPressionarTecla()) {
             return;
         }
 
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            g.setEsquerdaPressionada(false);
+            game.setEsquerdaPressionada(true);
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            g.setDireitaPressionada(false);
+            game.setDireitaPressionada(true);
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            g.setTiroPressionado(false);
+            game.setTiroPressionado(true);
         }
     }
 
-    public void teclaLiberada(KeyEvent e) {
-        System.out.println(e.getKeyChar());
-        
-        if (g.getEsperarPorPressionarTecla()) {
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (game.getEsperarPorPressionarTecla()) {
             return;
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            g.setEsquerdaPressionada(false);
+            game.setEsquerdaPressionada(false);
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            g.setDireitaPressionada(false);
+            game.setDireitaPressionada(false);
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            g.setTiroPressionado(false);
+            game.setTiroPressionado(false);
         }
     }
 
-    public void teclaDigitada(KeyEvent e) throws IOException {
-       System.out.println(e.getKeyChar());
-       
-        if (g.getEsperarPorPressionarTecla()) {
+    @Override
+    public void keyTyped(KeyEvent e) {
+        System.out.print("Tecla Digitada: ");
+
+        if (game.getEsperarPorPressionarTecla()) {
             if (contTeclasPressionadas == 1) {
-                g.setEsperarPorPressionarTecla(false);
-                g.startGame();
+                game.setEsperarPorPressionarTecla(false);
+                try {
+                    game.startGame();
+                } catch (IOException ex) {
+                    Logger.getLogger(Game.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 contTeclasPressionadas = 0;
             } else {
                 contTeclasPressionadas++;
             }
         }
 
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+        if (e.getKeyChar() == 27) {
+            System.out.println("Escape - Sair");
             System.exit(0);//Não sei se vai funcionar, visto que é dado por um obj desta classe
+        } else if ((e.getKeyChar() == 80) || (e.getKeyChar() == 112)) {
+            System.out.println("P - Pausa");
+            //setJogoRodando(pausa);
+            //pausa = !pausa;
         }
     }
 
