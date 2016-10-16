@@ -17,31 +17,119 @@ import spaceinvaders.game.entidades.EntidadeTiro;
 
 /**
  *
+ * Classe responsável pelo loop, controle da lógica e inicialização de entidades
+ * no jogo Um mediador(os métodos notifica por exemplo) será informado quando as
+ * entidades dentro do jogo detectam eventos (Exemplo: alien morto, robo morto,
+ * jogador morto) e tomará as ações aproriadas no jogo.
+ *
  * @author douglas
  * @version 1-25/09/2016, 21:03:13
  * @languageOfComments: Portuguese
+ *
  */
 public class Game {
 
+    /**
+     * Declara se o jogo está rodando ou não.
+     */
     private boolean jogoRodando;
+
+    /**
+     * Array para armazenamento das entidades existentes no jogo.
+     */
     private ArrayList entidades;
+
+    /**
+     * Array para armazenamento das entidades a serem removidas na próxima
+     * atualização de lógica do jogo.
+     */
     private ArrayList removeLista;
+
+    /**
+     * Entidade para instaciação da nave no jogo.
+     */
     private Entidade nave;
+
+    /**
+     * Tela principal para impressão do jogo.
+     */
     private Display tela;
+
+    /**
+     * Velocidade de movimento horizontal da nave.
+     */
     private double velocidadeDeMovimento;
+
+    /**
+     * Tempo decorrido, em milissegundos, desde o último tiro efetuado pelo
+     * jogador.
+     */
     private long ultimoTiro;
+
+    /**
+     * Intervalo, em milissegundos, que cada tiro efetuado pelo jogador deve ter
+     * entre si.
+     *
+     */
     private long intervaloDeTiro;
+
+    /**
+     * Número de aliens no jogo atual.
+     */
     private int alienCont;
+
+    /**
+     * Número de robôs no jogo atual.
+     */
     private int roboCont;
+
+    /**
+     * Número total(aliens e robôs) de inimigos no jogo atual.
+     */
     private int inimigoCont;
 
+    /**
+     * String para armazenar uma mensagem a ser exibida na tela.
+     */
     private String mensagem;
+
+    /**
+     * Declara o estado de espera ou não para o ouvinte de eventos de
+     * tecladteclado.TratadorDeEventoso.
+     */
     private boolean esperarPorPressionarTecla;
+
+    /**
+     * Declara se a seta esquerda foi pressionada no teclado para o ouvinte de
+     * eventos dos tecladoteclado.TratadorDeEventos.
+     */
     private boolean esquerdaPressionada;
+
+    /**
+     * Declara se a seta direita foi pressionada no teclado para o ouvinte de
+     * eventos dos tecladoteclado.TratadorDeEventos.
+     */
     private boolean direitaPressionada;
+
+    /**
+     * Declara se o espaço(tiro) foi pressionado no teclado para o ouvinte de
+     * eventos dos teclado(teclado.TratadorDeEventos).
+     */
     private boolean tiroPressionado;
+
+    /**
+     * Declara a necessidade ou não de atualizaçaõ da lógica no loopAtual.
+     */
     private boolean logicaNecessariaNesteLoop;
 
+    /**
+     * Construtor da classe Game, incializa os atributos da classe, cria um
+     * display para imprimir o jogo na tela, cria um ouvinte de eventos para as
+     * ações do jogo, incializa chama o método para inicializar as entidades na
+     * tela.
+     *
+     * @throws IOException
+     */
     public Game() throws IOException {
         jogoRodando = true;
         entidades = new ArrayList();
@@ -63,6 +151,11 @@ public class Game {
         initEntidades();
     }
 
+    /**
+     * Inicia um novo jogo, livre de todo dado antigo.
+     *
+     * @throws IOException
+     */
     public void startGame() throws IOException {
 
         System.out.println("startGame");
@@ -74,6 +167,13 @@ public class Game {
         tiroPressionado = false;
     }
 
+    /**
+     * Inicializa as entidades do jogo na tela(nave, robos, aliens) Cada
+     * entidade será adicionada a uma lista geral de entidades chamada
+     * 'entidades'.
+     *
+     * @throws IOException
+     */
     private void initEntidades() throws IOException {
         System.out.println("initEntities");
         int linha, col;
@@ -100,24 +200,47 @@ public class Game {
         inimigoCont = alienCont + roboCont;
     }
 
+    /**
+     * Altera o valor da logicaNecessaria no loop para true ou false,
+     * notificando a necessidade de atualização da lógica do jogo.
+     */
     public void atualizaLogica() {
         logicaNecessariaNesteLoop = true;
     }
 
+    /**
+     * Lista de entidades a serem removidas na próxima atualização de lógica do
+     * jogo.
+     *
+     * @param entidade
+     */
     public void removeEntidade(Entidade entidade) {
         removeLista.add(entidade);
     }
 
+    /**
+     * Notificação de que o jogador perdeu o jogo.
+     */
     public void notificaMorte() {
         mensagem = "Ahh não! Eles te pegaram, quer tentar de novo?";
         esperarPorPressionarTecla = true;
     }
 
+    /**
+     * Notificação de que o jogador ganhou o jogo.
+     */
     public void notificaVitoria() {
         mensagem = "Bom trabalho! Você Ganhou!";
         esperarPorPressionarTecla = true;
     }
 
+    /**
+     * Notifica que um alien foi morto, decrementa a quantidade de inimigos e de
+     * aliens no jogo, incrementa a velocidade horizontal do resto da frota de
+     * aliens.
+     *
+     * @param alien
+     */
     public void notificaAlienMorto(Entidade alien) {
         int i;
         if (alien.getExplodiu()) {
@@ -138,6 +261,12 @@ public class Game {
         }
     }
 
+    /**
+     * Notifica que um robô foi morto, decrementa a quantidade de inimigos e de
+     * robôs no jogo, incrementa a velocidade horizontal do resto da frota de
+     * robôs.
+     *
+     */
     public void notificaRoboMorto(Entidade robo) {
         int i;
 
@@ -159,6 +288,12 @@ public class Game {
         }
     }
 
+    /**
+     * Recebe o pedido de tiro e permite ou não ao jogador atirar no dado
+     * momento em que foi chamado, considerando o tempo desde o último tiro.
+     *
+     * @throws IOException
+     */
     public void tentaAtirar() throws IOException {
         if (System.currentTimeMillis() - ultimoTiro < intervaloDeTiro) {
             return;
@@ -171,6 +306,12 @@ public class Game {
         entidades.add(tiro);
     }
 
+    /**
+     * Loop principal do jogo, aqui atualiza-se os atributos de teclado e
+     * atualiza-se o buffer gráfico na tela.
+     *
+     * @throws IOException
+     */
     public void gameLoop() throws IOException {
         int i, j;
         long tempoUltimoLoop = System.currentTimeMillis();
