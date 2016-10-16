@@ -11,20 +11,23 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
-//import sun.audio.AudioStream;
 
 /**
+ *
+ * Classe responsável pelo gerenciamento dos arquivos de áudio utilizados no
+ * jogo.
  *
  * @author douglas
  * @version 1-15/10/2016, 22:18:49
  * @languageOfComments: Portuguese
  */
 public class Audio {
-    
+
     /**
-     * Toca o arquivo WAV do efeito especificado pelo parâmetro caminho
+     * Toca o arquivo WAV do efeito especificado pelo parâmetro caminho.
+     *
      * @param caminho Caminho relativo até o arquivo WAV do efeito
-     * @throws IOException 
+     * @throws IOException
      */
     public static void playEfeito(String caminho) throws IOException {
         try {
@@ -37,9 +40,11 @@ public class Audio {
             fail("Falha ao carregar: " + caminho);
         }
     }
+
     /**
      * Método para imprimir mensagem de falha em encontrar arquivo WAV
-     * @param msg 
+     *
+     * @param msg
      */
     private static void fail(String msg) {
         System.err.println(msg);
