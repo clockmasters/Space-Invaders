@@ -266,6 +266,7 @@ public class Game {
      * robôs no jogo, incrementa a velocidade horizontal do resto da frota de
      * robôs.
      *
+     * @param robo robo que foi morto
      */
     public void notificaRoboMorto(Entidade robo) {
         int i;
