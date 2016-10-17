@@ -24,7 +24,9 @@ public class Launcher {
     public static void main(String[] args) throws IOException {
         Game space = new Game();
         space.gameLoop();
-        /* Aqui que dá problema, então deixamos sem a introdução gráfica*/
+        /*Criamos uma janela de intrudução ao jogo, porém
+        por algum motivo o display do jogo em si deixa de
+        funcionar quanto utilizada junto dela.*/
         /*Intro intro = new Intro();*/
     }
 

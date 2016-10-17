@@ -256,7 +256,7 @@ public class Game {
     /**
      * Notifica que um alien foi morto, decrementa a quantidade de inimigos e de
      * aliens no jogo, incrementa a velocidade horizontal do resto da frota de
-     * aliens.
+     * aliens. Cada alien gera 10 pontos.
      *
      * @param alien
      */
@@ -284,7 +284,7 @@ public class Game {
     /**
      * Notifica que um robô foi morto, decrementa a quantidade de inimigos e de
      * robôs no jogo, incrementa a velocidade horizontal do resto da frota de
-     * robôs.
+     * robôs. Cada robõ gera 60 pontos.
      *
      * @param robo robo que foi morto
      */
