@@ -1,10 +1,19 @@
 package spaceinvaders.game;
 
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import java.util.ArrayList;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import spaceinvaders.game.audio.Audio;
 
 import spaceinvaders.game.display.Display;
@@ -53,7 +62,7 @@ public class Game {
     /**
      * Tela principal para impressão do jogo.
      */
-    private Display tela;
+    public Display tela;
 
     /**
      * Velocidade de movimento horizontal da nave.
@@ -156,12 +165,13 @@ public class Game {
      *
      * @throws IOException
      */
+    
     public void startGame() throws IOException {
 
         System.out.println("startGame");
         entidades.clear();
         initEntidades();
-
+        
         esquerdaPressionada = false;
         direitaPressionada = false;
         tiroPressionado = false;

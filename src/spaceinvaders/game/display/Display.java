@@ -25,12 +25,12 @@ public class Display extends Canvas {
     /**
      * Frame principal da janela do jogo.
      */
-    private JFrame frame;
+    public JFrame frame;
 
     /**
      * Painel onde os gráficos do jogo são desenhados.
      */
-    private JPanel painel;
+    public JPanel painel;
 
     /**
      * Título da janela do game.

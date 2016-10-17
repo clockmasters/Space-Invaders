@@ -2,6 +2,7 @@ package spaceinvaders;
 
 import java.io.IOException;
 import spaceinvaders.game.Game;
+import spaceinvaders.game.Intro;
 
 /**
  * Classe principal do aplicativo, responsável por criar a instância do classe
@@ -21,8 +22,10 @@ public class Launcher {
      * @throws IOException
      */
     public static void main(String[] args) throws IOException {
-        Game spaceInvaders = new Game();
-        spaceInvaders.gameLoop();
+        Game space = new Game();
+        space.gameLoop();
+        /* Aqui que dá problema, então deixamos sem a introdução gráfica*/
+        /*Intro intro = new Intro();*/
     }
 
 }
