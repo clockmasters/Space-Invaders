@@ -174,7 +174,15 @@ public class Game {
      *
      * @throws IOException
      */
+    public void setNomeJogador(String nome)
+    {
+        this.nome_jogador = nome;
+    }
     
+    public String getNomeJogador()
+    {
+        return this.nome_jogador;
+    }
     public void startGame() throws IOException {
 
         System.out.println("startGame");

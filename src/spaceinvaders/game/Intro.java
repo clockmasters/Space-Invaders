@@ -62,7 +62,8 @@ public class Intro extends JFrame implements ActionListener
         {
             try {
                 Game space = new Game();
-                space.gameLoop();;
+                space.setNomeJogador(nome_espaco.getText());                 
+                space.gameLoop();
             } catch (IOException ex) {
                 Logger.getLogger(Intro.class.getName()).log(Level.SEVERE, null, ex);
             }
