@@ -132,7 +132,6 @@ public class Display extends Canvas {
      */
     public void imprimeMensagem(Game game, String mensagem) {
         contextoGrafico.setColor(Color.white);
-        contextoGrafico.drawString(mensagem, (800 - contextoGrafico.getFontMetrics().stringWidth(mensagem)) / 2, 250);
         contextoGrafico.drawString(mensagem, (800 - contextoGrafico.getFontMetrics().stringWidth(mensagem)) / 2, 300);
     }
 

@@ -37,7 +37,6 @@ import spaceinvaders.game.entidades.EntidadeTiro;
  *
  */
 public class Game {
-
     /**
      * Declara se o jogo está rodando ou não.
      */
@@ -130,6 +129,15 @@ public class Game {
      * Declara a necessidade ou não de atualizaçaõ da lógica no loopAtual.
      */
     private boolean logicaNecessariaNesteLoop;
+    
+    /**
+     * Pontuação do jogador. Cada inimigo morto adicionará um valor aqui.
+     */
+    private int score;
+     /**
+     * Nome do jogador. Não está sendo utilizado.
+     */   
+    private String nome_jogador;
 
     /**
      * Construtor da classe Game, incializa os atributos da classe, cria um
@@ -146,6 +154,7 @@ public class Game {
         velocidadeDeMovimento = 300;
         ultimoTiro = 0;
         intervaloDeTiro = 500;
+        score = 0;
 
         mensagem = "";
         esperarPorPressionarTecla = true;
@@ -232,7 +241,7 @@ public class Game {
      * Notificação de que o jogador perdeu o jogo.
      */
     public void notificaMorte() {
-        mensagem = "Ahh não! Eles te pegaram, quer tentar de novo?";
+        mensagem = "Ahh não! Eles te pegaram, quer tentar de novo?\n Sua pontuação é: " + this.score;
         esperarPorPressionarTecla = true;
     }
 
@@ -240,7 +249,7 @@ public class Game {
      * Notificação de que o jogador ganhou o jogo.
      */
     public void notificaVitoria() {
-        mensagem = "Bom trabalho! Você Ganhou!";
+        mensagem = "Bom trabalho! Você Ganhou!\n Sua pontuação é : " + this.score;
         esperarPorPressionarTecla = true;
     }
 
@@ -256,6 +265,7 @@ public class Game {
         if (alien.getExplodiu()) {
             inimigoCont--;
             alienCont--;
+            score = score + 10;
         }
         if (inimigoCont == 0) {
             notificaVitoria();
@@ -284,6 +294,7 @@ public class Game {
         if (robo.getExplodiu()) {
             inimigoCont--;
             roboCont--;
+            score = score + 60;
         }
         if (inimigoCont == 0) {
             notificaVitoria();
